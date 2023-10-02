@@ -35,8 +35,7 @@
 	        $result = $conn->query($sql);
 
 	        if ($result == true){
-	        	print_r('Success'); die();
-	            header('location:login.php?q=true');
+	            header('location:product_list.php');
 	        }
     	}
 
@@ -77,10 +76,10 @@
                 <span style="color: #d44950;"><?= !empty($Errprice) ? $Errprice:''; ?></span>
               </div>
               <div class="form-group mb-3">
-			    <label class="form-label" for="customFile">Product Image</label>
-				<input type="file" class="form-control" name="image" />
-			    <span style="color: #d44950;"><?= !empty($Errimage) ? $Errimage:''; ?></span>
-			  </div>
+    			    <label class="form-label" for="customFile">Product Image</label>
+    				<input type="file" class="form-control" name="image" />
+    			    <span style="color: #d44950;"><?= !empty($Errimage) ? $Errimage:''; ?></span>
+    			  </div>
               <div class="form-group mb-3">
               	<label class="mb-2">Product Descrictopn</label>
                 <textarea name="desc" class="form-control" rows="4" cols="50"><?= $desc ?></textarea>

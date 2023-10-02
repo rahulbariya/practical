@@ -1,7 +1,7 @@
 <?php 
 	require 'connection.php';
 	require 'session.php';
-	$sql = "SELECT * FROM product ORDER BY ID";
+	$sql = "SELECT * FROM product ORDER BY ID DESC";
 	$product = $conn->query($sql);
 	$row = $product->fetch_assoc();
 ?>
@@ -43,7 +43,7 @@
 					      <td><input type="image" src="<?=$row['image']?>" width="30" height="30"></td>
 					      <td><?= $row['name'] ?></td>
 					      <td><?= $row['price'] ?></td>
-					      <td><?= $row['desc'] ?></td>
+					      <td><?= $row['description'] ?></td>
 					      <td>
 					      		<a href="product_edit.php?id=<?= $row['id'] ?>" class="btn btn-success">Edit</a>
 					      		<a href="product_delete.php?id=<?= $row['id'] ?>" class="btn btn-danger">Delete</a>

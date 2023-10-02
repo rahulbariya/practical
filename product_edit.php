@@ -17,11 +17,19 @@
   		$name = $_POST['name'];
   		$price = $_POST['price'];
   		$desc = $_POST['desc'];
-      if (isset($_FILES['image']['name'])) {
-  		  $image = basename($_FILES['image']['name']);
-      }
 
-      //print_r($image); die();
+      //$requst = $_POST;
+      //print_r($_FILES['image']['name']); die();
+
+  $product = $conn->query("SELECT * FROM product WHERE id = $id")->fetch_object();
+
+      if (!empty($_FILES['image']['name'])) {
+        $image = basename($_FILES['image']['name']);
+      }
+      else{
+        $imagePath = $product->image;  
+      }
+      
   		if (empty($name)) {
   			$Errname = "Product Name is Require";
   		}
@@ -35,13 +43,13 @@
 
   		if ($Errname == '' && $Errprice == '' && $Errimage == '' && $Errdesc == '') {
 
-        if (isset($_FILES['image']['name'])) {
+        if (!empty($_FILES['image']['name'])) {
   			   move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$image);
+  			   $imagePath = 'images/'.$image;
         }
-  			$imagePath = 'images/'.$image;
 	      $sql = "
           UPDATE product 
-          SET name='$name',price='$price',image = '$imagePath'
+          SET name='$name',price='$price',image = '$imagePath',description = '$desc'
           WHERE id= $id ";
 
 	        $result = $conn->query($sql);
@@ -95,11 +103,11 @@
               <div class="form-group mb-3">
 			           <label class="form-label" for="customFile">Product Image</label>
                  <img src="<?= $result->image ?>" width="50" height="50">
-				         <input type="file" class="form-control" name="<?= $result->image ?>" />
+				         <input type="file" class="form-control" name="image" />
 			       </div>
               <div class="form-group mb-3">
               	<label class="mb-2">Product Descrictopn</label>
-                <textarea name="desc" class="form-control" rows="4" cols="50"><?= $result->desc ?></textarea>
+                <textarea name="desc" class="form-control" rows="4" cols="50"><?= $result->description ?></textarea>
                 <span style="color: #d44950;"><?= !empty($Errdesc) ? $Errdesc:''; ?></span>
               </div>
               <input type="hidden" value="<?= $_GET['id'] ?>" name="id">
